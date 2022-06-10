@@ -19,7 +19,7 @@ public class Telefone {
 	private String numero;
 	
 	@JsonIgnore
-	@org.hibernate.annotations.ForeignKey(name = "usuario_id")
+	@org.hibernate.annotations.ForeignKey(name = "id")
 	@ManyToOne(optional = false)
 	private Usuario usuario;
 
