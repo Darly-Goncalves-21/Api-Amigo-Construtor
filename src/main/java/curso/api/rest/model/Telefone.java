@@ -1,7 +1,6 @@
 package curso.api.rest.model;
 
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +18,7 @@ public class Telefone {
 	private String numero;
 	
 	@JsonIgnore
-	@org.hibernate.annotations.ForeignKey(name = "id")
+	@org.hibernate.annotations.ForeignKey(name = "usuario_id")
 	@ManyToOne(optional = false)
 	private Usuario usuario;
 

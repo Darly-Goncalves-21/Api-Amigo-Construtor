@@ -27,7 +27,9 @@ import com.google.gson.Gson;
 
 import curso.api.rest.model.Usuario;
 import curso.api.rest.model.UsuarioDTO;
+import curso.api.rest.repository.TelefoneRepository;
 import curso.api.rest.repository.UsuarioRepository;
+import curso.api.rest.service.ImplementacaoUserDetailsService;
 
 @RestController /* Arquitetura REST */
 @RequestMapping(value = "/usuario")
@@ -35,6 +37,12 @@ public class IndexController {
 	
 	@Autowired /* de fosse CDI seria @Inject*/
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+    private ImplementacaoUserDetailsService implementacaoUserDetailsService;
+	
+	@Autowired
+	private TelefoneRepository telefoneRepository;
 	
 	
 	/* Serviço RESTful */
@@ -176,6 +184,8 @@ public class IndexController {
 		usuario.setSenha(senhaCripto);
 		Usuario usuarioSalvo = usuarioRepository.save(usuario);
 		
+		implementacaoUserDetailsService.insereAcessoPadrao(usuarioSalvo.getId());
+		
 		return new ResponseEntity<Usuario>(usuarioSalvo, HttpStatus.OK);
 		
 	}
@@ -229,6 +239,12 @@ public class IndexController {
 		
 	}
 	
+	@DeleteMapping(value = "/remover-telefone/{id}", produces = "application/text")
+	public String deleteTelefone(@PathVariable("id") Long id) {
+		telefoneRepository.deleteById(id);
+		
+		return "Deletado";
+	}
 	
 	
 
